@@ -156,13 +156,10 @@ def main():
         print("==========******************=========")
         print("[1] Create Folder")
         print("[2] Paste URL Link")
-        print("[3] Input Folder: /storage/emulated/0/My file")
-        print("[4] Choose Format: 1. MP4, 2. MP3")
-        print("[5] Choose Quality: 144p, 240p, 360p, 480p, 720p, 1080p, 2K, 4K, 8K")
-        print("[6] Start Download")
-        print("[7] Stop Download")
-        print("[8] Check Download Success")
-        print("[9] Exit")
+        print("[3] Choose Quality: 144p, 240p, 360p, 480p, 720p, 1080p, 2K, 4K, 8K")
+        print("[4] Start Download")
+        print("[5] Check Download Success")
+        print("[0] Exit")
         print("==========***=========")
         choice = input("Choose: ")
 
@@ -172,14 +169,11 @@ def main():
             url = input("Paste the video URL: ")
             if url:
                 urls.append(url)
+        # elif choice == "4":
+        #     format_option = input("Choose format (1. MP4, 2. MP3): ")
         elif choice == "3":
-            output_folder = "/storage/emulated/0/My file"
-            print(f"✅ Output folder set to: {output_folder}")
-        elif choice == "4":
-            format_option = input("Choose format (1. MP4, 2. MP3): ")
-        elif choice == "5":
             quality = input("Choose video quality (144, 240, 360, 480, 720, 1080, 2K, 4K, 8K): ")
-        elif choice == "6":
+        elif choice == "4":
             if not urls:
                 print("⚠️ Please add at least one video URL!")
             elif not output_folder:
@@ -191,11 +185,11 @@ def main():
             else:
                 download_video(urls, output_folder, format_option, quality)
                 urls.clear()
-        elif choice == "7":
-            print("🚫 Stop download feature is not implemented yet!")
-        elif choice == "8":
+        # elif choice == "7":
+        #     print("🚫 Stop download feature is not implemented yet!")
+        elif choice == "5":
             check_downloads(output_folder)
-        elif choice == "9":
+        elif choice == "0":
             print("👋 Exiting... Goodbye!")
             break
         else:
