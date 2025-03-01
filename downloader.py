@@ -155,10 +155,12 @@ def main():
         print(" CREATE BY: PHIROM ")
         print("==========******************=========")
         print("[1] Create Folder")
-        print("[2] Paste URL Link")
-        print("[3] Choose Quality: 144p, 240p, 360p, 480p, 720p, 1080p, 2K, 4K, 8K")
-        print("[4] Start Download")
-        print("[5] Check Download Success")
+        print("[2] Paste URL Link") 
+        print("[3] Choose Format: 1. MP4, 2. MP3")
+        print("[4] Choose Quality: 144p, 240p, 360p, 480p, 720p, 1080p, 2K, 4K, 8K")
+        print("[5] Start Download")
+        print("[6] Check Download Success")
+       
         print("[0] Exit")
         print("==========***=========")
         choice = input("Choose: ")
@@ -169,11 +171,11 @@ def main():
             url = input("Paste the video URL: ")
             if url:
                 urls.append(url)
-        # elif choice == "4":
-        #     format_option = input("Choose format (1. MP4, 2. MP3): ")
         elif choice == "3":
-            quality = input("Choose video quality (144, 240, 360, 480, 720, 1080, 2K, 4K, 8K): ")
+            format_option = input("Choose format (1. MP4, 2. MP3): ")
         elif choice == "4":
+            quality = input("Choose video quality (144, 240, 360, 480, 720, 1080, 2K, 4K, 8K): ")
+        elif choice == "5":
             if not urls:
                 print("⚠️ Please add at least one video URL!")
             elif not output_folder:
@@ -187,7 +189,7 @@ def main():
                 urls.clear()
         # elif choice == "7":
         #     print("🚫 Stop download feature is not implemented yet!")
-        elif choice == "5":
+        elif choice == "6":
             check_downloads(output_folder)
         elif choice == "0":
             print("👋 Exiting... Goodbye!")
