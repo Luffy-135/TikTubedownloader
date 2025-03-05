@@ -1,6 +1,5 @@
 import os
 import yt_dlp
-import time
 
 def create_folder():
     folder_name = input("Enter folder name: ")
@@ -12,24 +11,12 @@ def create_folder():
         print(f"⚠️ Folder '{folder_name}' already exists!")
     return folder_path
 
-def sanitize_filename(filename):
-    # Remove invalid characters and truncate filename
-    invalid_chars = '<>:"/\\|?*'
-    for char in invalid_chars:
-        filename = filename.replace(char, '_')
-    max_length = 100
-    if len(filename) > max_length:
-        filename = filename[:max_length]
-    return filename
-
 def download_video(urls, output_folder, format_option, quality):
     for url in urls:
         ydl_opts = {
             'outtmpl': f'{output_folder}/%(title)s.%(ext)s',
-            'retries': 3,  # Retry up to 3 times
-            'quiet': True,  # Suppress unnecessary output
         }
-        
+
         if format_option == "2":
             ydl_opts['format'] = 'bestaudio/best'
             ydl_opts['postprocessors'] = [{
@@ -43,22 +30,17 @@ def download_video(urls, output_folder, format_option, quality):
         print(f"⏳ Downloading {url}...")
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info_dict = ydl.extract_info(url, download=False)
-                title = info_dict.get('title', 'video')
-                sanitized_title = sanitize_filename(title)
-                ydl_opts['outtmpl'] = f'{output_folder}/{sanitized_title}.%(ext)s'
                 ydl.download([url])
             print("✅ Download completed successfully!")
         except Exception as e:
             print(f"❌ Error downloading {url}: {e}")
             print("➡️ Skipping to the next video...")
-        time.sleep(5)  # Add a delay to avoid rate-limiting
 
 def check_downloads(folder_path):
     if not folder_path:
         print("⚠️ No folder selected!")
         return
-    
+
     files = os.listdir(folder_path)
     if files:
         print("\n📂 Downloaded Files:")
@@ -72,19 +54,18 @@ def main():
     output_folder = None
     format_option = None
     quality = None
-    
+
     while True:
         print("\n==========******************=========")
         print(" TOOL DOWNLOADER TIKTOK AND YOUTUBE")
         print(" CREATE BY: PHIROM ")
         print("==========******************=========")
         print("[1] Create Folder")
-        print("[2] Paste URL Link") 
+        print("[2] Paste URL Link")
         print("[3] Choose Format: 1. MP4, 2. MP3")
         print("[4] Choose Quality: 144p, 240p, 360p, 480p, 720p, 1080p, 2K, 4K, 8K")
         print("[5] Start Download")
         print("[6] Check Download Success")
-       
         print("[0] Exit")
         print("==========***=========")
         choice = input("Choose: ")
