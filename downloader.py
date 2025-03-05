@@ -13,7 +13,10 @@ def create_folder():
     return folder_path
 
 def sanitize_filename(filename):
-    # Truncate filename to avoid too long names
+    # Remove invalid characters and truncate filename
+    invalid_chars = '<>:"/\\|?*'
+    for char in invalid_chars:
+        filename = filename.replace(char, '_')
     max_length = 100
     if len(filename) > max_length:
         filename = filename[:max_length]
@@ -24,6 +27,7 @@ def download_video(urls, output_folder, format_option, quality):
         ydl_opts = {
             'outtmpl': f'{output_folder}/%(title)s.%(ext)s',
             'retries': 3,  # Retry up to 3 times
+            'quiet': True,  # Suppress unnecessary output
         }
         
         if format_option == "2":
