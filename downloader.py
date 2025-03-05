@@ -1,5 +1,6 @@
 import os
 import yt_dlp
+import time
 
 def create_folder():
     folder_name = input("Enter folder name: ")
@@ -22,6 +23,7 @@ def download_video(urls, output_folder, format_option, quality):
     for url in urls:
         ydl_opts = {
             'outtmpl': f'{output_folder}/%(title)s.%(ext)s',
+            'retries': 3,  # Retry up to 3 times
         }
         
         if format_option == "2":
@@ -46,6 +48,7 @@ def download_video(urls, output_folder, format_option, quality):
         except Exception as e:
             print(f"❌ Error downloading {url}: {e}")
             print("➡️ Skipping to the next video...")
+        time.sleep(5)  # Add a delay to avoid rate-limiting
 
 def check_downloads(folder_path):
     if not folder_path:
